@@ -1,7 +1,9 @@
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>Attendance and Marks Calculator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
         table {
             border-collapse: collapse;
@@ -15,12 +17,16 @@
     </style>
 </head>
 <body>
-    <h1>Attendance and Marks Calculator</h1>
-    <textarea id="dataInput" rows="10" cols="50" placeholder="Paste your raw data here"></textarea>
-    <br>
-    <button onclick="processRawData()">Process Data</button>
-    <br>
-    <div id="outputContainer"></div>
+    <div class="container">
+        <h1>Attendance and Marks Calculator</h1>
+        <textarea id="dataInput" rows="10" cols="50" placeholder="Paste your raw data here"></textarea>
+        <br>
+        <button class="btn btn-primary" onclick="processRawData()">Process Data</button>
+        <br>
+        <div id="outputContainer"></div>
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <script>
         function processRawData() {
@@ -67,9 +73,10 @@
                 attendanceNeeded75Cell.textContent = currentAttendance !== '-' && currentAttendance < 75 ? Math.ceil((0.75 * classesHeld - classesAttended)) : '-';
                 row.appendChild(attendanceNeeded75Cell);
 
-                const attendanceNeeded85Cell = document.createElement("td");
-                attendanceNeeded85Cell.textContent = currentAttendance !== '-' && currentAttendance < 85 ? Math.ceil((0.85 * classesHeld - classesAttended)) : '-';
-                row.appendChild(attendanceNeeded85Cell);
+                const attendanceNeeded85 = currentAttendance !== '-' && currentAttendance < 85 ? Math.ceil((0.85 * classesHeld - classesAttended)) : '-';
+const attendanceNeeded85Cell = document.createElement("td");
+attendanceNeeded85Cell.textContent = attendanceNeeded85 !== '-' ? attendanceNeeded85 : attendanceNeeded75Cell.textContent;
+row.appendChild(attendanceNeeded85Cell);
 
                 const totalMarksCell = document.createElement("td");
                 totalMarksCell.textContent = marks;
