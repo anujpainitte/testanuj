@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attendance and Marks Calculator</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Attendance and Marks Calculator</h1>
+    <textarea id="dataInput" rows="10" cols="50" placeholder="Paste your raw data here"></textarea>
+    <br>
+    <button onclick="processRawData()">Process Data</button>
+    <br>
+    <div id="outputContainer"></div>
+
+    <script>
+        function processRawData() {
+            const rawData = document.getElementById("dataInput").value;
+            const rows = rawData.trim().split('\n');
+
+            const table = document.createElement("table");
+
+            const headers = ["Subject", "Current Attendance (%)", "Attendance Needed for above 75%", "Attendance Needed for above 85%", "Total Marks (out of 50)"];
+            const headerRow = document.createElement("tr");
+            headers.forEach(headerText => {
+                const header = document.createElement("th");
+                header.textContent = headerText;
+                headerRow.appendChild(header);
+            });
+            table.appendChild(headerRow);
+
+            let totalMarks = 0;
+
+            rows.forEach((rowData, index) => {
+                const columns = rowData.trim().split('\t');
+
+                const subject = columns[1];
+                const classesHeld = columns[columns.length - 2] !== '' ? parseFloat(columns[columns.length - 2]) : 0;
+                const classesAttended = columns[columns.length - 1] !== '' ? parseFloat(columns[columns.length - 1]) : 0;
+                const currentAttendance = classesHeld !== 0 ? (classesAttended / classesHeld * 100).toFixed(2) : '-';
+
+                const marksData = columns.slice(2, columns.length - 2).filter(mark => mark !== '' && mark !== '*' && mark !== '#');
+                const marks = marksData.length > 0 ? marksData.reduce((sum, mark) => sum + parseFloat(mark), 0) : 0;
+
+                totalMarks += marks;
+
+                const row = document.createElement("tr");
+
+                const subjectCell = document.createElement("td");
+                subjectCell.textContent = subject;
+                row.appendChild(subjectCell);
+
+                const currentAttendanceCell = document.createElement("td");
+                currentAttendanceCell.textContent = !isNaN(currentAttendance) ? currentAttendance : '-';
+                row.appendChild(currentAttendanceCell);
+
+                const attendanceNeeded75Cell = document.createElement("td");
+                attendanceNeeded75Cell.textContent = currentAttendance !== '-' && currentAttendance < 75 ? Math.ceil((0.75 * classesHeld - classesAttended)) : '-';
+                row.appendChild(attendanceNeeded75Cell);
+
+                const attendanceNeeded85Cell = document.createElement("td");
+                attendanceNeeded85Cell.textContent = currentAttendance !== '-' && currentAttendance < 85 ? Math.ceil((0.85 * classesHeld - classesAttended)) : '-';
+                row.appendChild(attendanceNeeded85Cell);
+
+                const totalMarksCell = document.createElement("td");
+                totalMarksCell.textContent = marks;
+                row.appendChild(totalMarksCell);
+
+                table.appendChild(row);
+            });
+
+            const outputContainer = document.getElementById("outputContainer");
+            outputContainer.innerHTML = '';
+            outputContainer.appendChild(table);
+        }
+    </script>
+</body>
+</html>
