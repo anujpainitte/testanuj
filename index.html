@@ -1,8 +1,7 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Attendance and Marks Calculator</title>
+    <title>Attendance and Marks Calculator / Grade Point Calculator</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
         table {
@@ -70,13 +69,13 @@
                 row.appendChild(currentAttendanceCell);
 
                 const attendanceNeeded75Cell = document.createElement("td");
-                attendanceNeeded75Cell.textContent = currentAttendance !== '-' && currentAttendance < 75 ? Math.ceil((0.75 * classesHeld - classesAttended)) : '-';
+                attendanceNeeded75Cell.textContent = currentAttendance !== '-' && currentAttendance < 75 ? Math.ceil((0.75 * classesHeld - classesAttended) / 0.15) : '-';
                 row.appendChild(attendanceNeeded75Cell);
 
-                const attendanceNeeded85 = currentAttendance !== '-' && currentAttendance < 85 ? Math.ceil((0.85 * classesHeld - classesAttended)) : '-';
-const attendanceNeeded85Cell = document.createElement("td");
-attendanceNeeded85Cell.textContent = attendanceNeeded85 !== '-' ? attendanceNeeded85 : attendanceNeeded75Cell.textContent;
-row.appendChild(attendanceNeeded85Cell);
+                const attendanceNeeded85 = currentAttendance !== '-' && currentAttendance < 85 ? Math.ceil((0.85 * classesHeld - classesAttended) / 0.15) : '-';
+                const attendanceNeeded85Cell = document.createElement("td");
+                attendanceNeeded85Cell.textContent = attendanceNeeded85 !== '-' ? attendanceNeeded85 : attendanceNeeded75Cell.textContent;
+                row.appendChild(attendanceNeeded85Cell);
 
                 const totalMarksCell = document.createElement("td");
                 totalMarksCell.textContent = marks;
@@ -88,6 +87,46 @@ row.appendChild(attendanceNeeded85Cell);
             const outputContainer = document.getElementById("outputContainer");
             outputContainer.innerHTML = '';
             outputContainer.appendChild(table);
+        }
+    </script>
+
+    <h1>Grade Point Calculator</h1>
+    <form>
+        <label for="totalMarks">Total Marks (out of 50):</label>
+        <input type="number" id="totalMarks" name="totalMarks" required><br><br>
+
+        <label for="desiredGradePoint">Desired Grade Point:</label>
+        <select id="desiredGradePoint" name="desiredGradePoint" required>
+            <option value="">Select Grade Point</option>
+            <option value="10">10</option>
+            <option value="9">9</option>
+            <option value="8">8</option>
+            <option value="7">7</option>
+            <option value="6">6</option>
+        </select><br><br>
+
+        <input type="button" value="Calculate" onclick="calculateSEE()"><br><br>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        function calculateSEE() {
+            var totalMarks = parseInt(document.getElementById("totalMarks").value);
+            var desiredGradePoint = parseInt(document.getElementById("desiredGradePoint").value);
+
+            if (totalMarks < 20) {
+                document.getElementById("result").innerHTML = "Not eligible for calculation. Total marks should be at least 40.";
+                return;
+            }
+
+            var seeMarks = ((desiredGradePoint * 10) - totalMarks) * 2;
+
+            if (seeMarks > 100) {
+                document.getElementById("result").innerHTML = "You need to score more than 100 marks in the SEE to achieve a grade point of " + desiredGradePoint + " which is impossible.";
+            } else {
+                document.getElementById("result").innerHTML = "You need to score at least " + seeMarks.toFixed(2) + " marks in the SEE to achieve a grade point of " + desiredGradePoint;
+            }
         }
     </script>
 </body>
