@@ -88,35 +88,44 @@
             outputContainer.innerHTML = '';
             outputContainer.appendChild(table);
         }
-    </script>
+    </script><br><br>
+    <hr class="my-5">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Grade Point Calculator</h1>
+        <form>
+            <div class="form-group">
+                <label for="totalMarks">Total Marks (out of 50):</label>
+                <input type="number" class="form-control" id="totalMarks" name="totalMarks" required>
+            </div>
+            <div class="form-group">
+                <label for="desiredGradePoint">Desired Grade Point:</label>
+                <select class="form-control" id="desiredGradePoint" name="desiredGradePoint" required>
+                    <option value="">Select Grade Point</option>
+                    <option value="10">10</option>
+                    <option value="9">9</option>
+                    <option value="8">8</option>
+                    <option value="7">7</option>
+                    <option value="6">6</option>
+                </select>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="calculateSEE()">Calculate</button>
+        </form>
 
-    <h1>Grade Point Calculator(not working)</h1>
-    <form>
-        <label for="totalMarks">Total Marks (out of 50):</label>
-        <input type="number" id="totalMarks" name="totalMarks" required><br><br>
+        <div id="result"></div>
+    </div>
 
-        <label for="desiredGradePoint">Desired Grade Point:</label>
-        <select id="desiredGradePoint" name="desiredGradePoint" required>
-            <option value="">Select Grade Point</option>
-            <option value="10">10</option>
-            <option value="9">9</option>
-            <option value="8">8</option>
-            <option value="7">7</option>
-            <option value="6">6</option>
-        </select><br><br>
-
-        <input type="button" value="Calculate" onclick="calculateSEE()"><br><br>
-    </form>
-
-    <div id="result"></div>
-
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script>
         function calculateSEE() {
             var totalMarks = parseInt(document.getElementById("totalMarks").value);
             var desiredGradePoint = parseInt(document.getElementById("desiredGradePoint").value);
 
             if (totalMarks < 20) {
-                document.getElementById("result").innerHTML = "Not eligible for calculation. Total marks should be at least 40.";
+                document.getElementById("result").innerHTML = "Not eligible for calculation. Total marks should be at least 20.";
                 return;
             }
 
@@ -131,3 +140,6 @@
     </script>
 </body>
 </html>
+
+
+    
