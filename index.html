@@ -129,7 +129,7 @@
                 return;
             }
 
-            var seeMarks = ((desiredGradePoint * 10) - totalMarks - 5) * 2;
+            var seeMarks = ((desiredGradePoint * 10) - totalMarks - 10) * 2;
 
             if (seeMarks > 100) {
                 document.getElementById("result").innerHTML = "You need to score more than 100 marks in the SEE to achieve a grade point of " + desiredGradePoint + " which is impossible.";
