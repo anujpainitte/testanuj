@@ -107,10 +107,10 @@
                 row.appendChild(currentAttendanceCell);
 
                 const attendanceNeeded75Cell = document.createElement("td");
-                attendanceNeeded75Cell.textContent = currentAttendance !== '-' && currentAttendance < 75 ? Math.ceil((0.75 * classesHeld - classesAttended) / 0.15) : '-';
+                attendanceNeeded75Cell.textContent = currentAttendance !== '-' && currentAttendance < 75 ? Math.round((0.75 * classesHeld - classesAttended) / 0.15) : '-';
                 row.appendChild(attendanceNeeded75Cell);
 
-                const attendanceNeeded85 = currentAttendance !== '-' && currentAttendance < 85 ? Math.ceil((0.85 * classesHeld - classesAttended) / 0.15) : '-';
+                const attendanceNeeded85 = currentAttendance !== '-' && currentAttendance < 85 ? Math.round((0.85 * classesHeld - classesAttended) / 0.15) : '-';
                 const attendanceNeeded85Cell = document.createElement("td");
                 attendanceNeeded85Cell.textContent = attendanceNeeded85 !== '-' ? attendanceNeeded85 : attendanceNeeded75Cell.textContent;
                 row.appendChild(attendanceNeeded85Cell);
