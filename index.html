@@ -4,12 +4,19 @@
     <title>Attendance and Marks Calculator / Grade Point Calculator</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
  <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        y {
+            position: relative;
+            min-height: 100vh;
             background-color: #f8f9fa;
+        }
+        
+        .qr-code {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: auto;
         }
 
         table {
