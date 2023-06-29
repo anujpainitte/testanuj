@@ -3,7 +3,7 @@
 <head>
     <title>Attendance and Marks Calculator / Grade Point Calculator</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
- <style>
+    <style>
         y {
             position: relative;
             min-height: 100vh;
@@ -28,7 +28,20 @@
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
+
+        .orange-text {
+            color: orange;
+        }
+
+        .red-text {
+            color: red;
+        }
+
+        body {
+            font-family: "Arial", sans-serif;        
+        }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -68,8 +81,11 @@
     <script>
         function processRawData() {
             const rawData = document.getElementById("dataInput").value;
-            const rows = rawData.trim().split('\n');
-
+            const startIndex = rawData.indexOf("Subject Name");
+            const endIndex = rawData.indexOf("Note :");
+            const data = rawData.substring(startIndex, endIndex).trim();
+            const rows = data.split('\n');
+            rows.splice(0, 3);
             const table = document.createElement("table");
 
             const headers = ["Subject", "Current Attendance (%)", "Classes to attend for above 75%", "Classes to attend for above 85%", "Total Marks (out of 50)"];
@@ -107,12 +123,26 @@
                 row.appendChild(currentAttendanceCell);
 
                 const attendanceNeeded75Cell = document.createElement("td");
-                attendanceNeeded75Cell.textContent = currentAttendance !== '-' && currentAttendance < 75 ? Math.round((0.75 * classesHeld - classesAttended) / 0.15) : '-';
+                const attendanceNeeded85Cell = document.createElement("td");
+
+                if (currentAttendance !== '-' && currentAttendance < 75) {
+                    const classesNeeded75 = Math.ceil((0.75 * classesHeld - classesAttended) / 0.15);
+                    attendanceNeeded75Cell.textContent = classesNeeded75;
+                    attendanceNeeded75Cell.classList.add("red-text");
+                } else {
+                    attendanceNeeded75Cell.textContent = '-';
+                }
+
                 row.appendChild(attendanceNeeded75Cell);
 
-                const attendanceNeeded85 = currentAttendance !== '-' && currentAttendance < 85 ? Math.round((0.85 * classesHeld - classesAttended) / 0.15) : '-';
-                const attendanceNeeded85Cell = document.createElement("td");
-                attendanceNeeded85Cell.textContent = attendanceNeeded85 !== '-' ? attendanceNeeded85 : attendanceNeeded75Cell.textContent;
+                if (currentAttendance !== '-' && currentAttendance < 85) {
+                    const classesNeeded85 = Math.ceil((0.85 * classesHeld - classesAttended) / 0.15);
+                    attendanceNeeded85Cell.textContent = classesNeeded85;
+                    attendanceNeeded85Cell.classList.add("orange-text");
+                } else {
+                    attendanceNeeded85Cell.textContent = attendanceNeeded75Cell.textContent;
+                }
+
                 row.appendChild(attendanceNeeded85Cell);
 
                 const totalMarksCell = document.createElement("td");
@@ -144,10 +174,7 @@
                 document.getElementById("result").innerHTML = "You need to score at least " + seeMarks.toFixed(2) + " marks or more in the SEE to achieve a grade point of " + desiredGradePoint;
             }
         }
-        
-    </script>
-    <div class="qr-code">
-        <img src="QRanuj.jpg" alt="QR Code" style="width: 200px; height: 200px;">
-    </div>
+    </script>  
 </body>
 </html>
+
