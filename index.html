@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><br>
     <title>Attendance and Marks Calculator / Grade Point Calculator</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
@@ -49,6 +49,10 @@
         <textarea id="dataInput" rows="10" cols="50" class="form-control mb-4" placeholder="Paste your raw data here"></textarea>
         <button class="btn btn-primary mb-4" onclick="processRawData()">Process Data</button>
         <div id="outputContainer"></div>
+        <p id="instruction1" class="mb-4">1. Go to <a href="http://parent-login.nmamit.in/index.php">http://parent-login.nmamit.in/index.php</a> and login.</p>
+        <p id="instruction2" class="mb-4">2. Double-click on any text and click "Select All" to select the entire text.</p>
+        <p id="instruction3" class="mb-4">3. Copy the selected text and paste it into the "Raw Data" section above.</p>
+        <p id="instruction4" class="mb-4">4. Click on the "Process Data" button to generate the attendance and marks table.</p>
     </div>
 
     <hr class="my-5">
@@ -75,6 +79,10 @@
         </form>
 
         <div id="result" class="mt-4"></div>
+        <p id="instruction5" class="mt-4">1. Enter the total marks out of 50
+ you have obtained ( MSE + Tasks).</p>
+        <p id="instruction6" class="mt-4">2. Select your desired grade point from the dropdown list.</p>
+        <p id="instruction7" class="mt-4">3. Click the "Calculate" button to determine the marks required in SEE.</p>
     </div>
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -152,7 +160,9 @@
                 table.appendChild(row);
             });
 
-            const outputContainer = document.getElementById("outputContainer");
+            const outputContainer
+
+ = document.getElementById("outputContainer");
             outputContainer.innerHTML = '';
             outputContainer.appendChild(table);
         }
@@ -174,7 +184,17 @@
                 document.getElementById("result").innerHTML = "You need to score at least " + seeMarks.toFixed(2) + " marks or more in the SEE to achieve a grade point of " + desiredGradePoint;
             }
         }
+
+        // Auto-hide instructions after 10 seconds
+        setTimeout(() => {
+            document.getElementById("instruction1").style.display = "none";
+            document.getElementById("instruction2").style.display = "none";
+            document.getElementById("instruction3").style.display = "none";
+            document.getElementById("instruction4").style.display = "none";
+            document.getElementById("instruction5").style.display = "none";
+            document.getElementById("instruction6").style.display = "none";
+            document.getElementById("instruction7").style.display = "none";
+        }, 15000);
     </script>  
 </body>
 </html>
-
