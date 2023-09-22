@@ -12,7 +12,9 @@
         <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-lg">
             <textarea id="dataInput" rows="10" cols="50" class="form-textarea block w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200" placeholder="Paste your raw data here"></textarea>
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4 block mx-auto" onclick="processRawData()">Process Data</button>
-            <div id="outputContainer" class="mt-6"></div>
+            <div id="outputContainer" class="mt-6 overflow-x-auto">
+                <!-- Processed data table will be inserted here -->
+            </div>
             <p id="instruction1" class="mt-6 text-gray-600">1. Go to <a href="http://parent-login.nmamit.in/index.php" class="text-blue-500" target="_blank">http://parent-login.nmamit.in/index.php</a> and login.</p>
             <p id="instruction2" class="text-gray-600">2. Double-click on any text and click "Select All" to select the entire text.</p>
             <p id="instruction3" class="text-gray-600">3. Copy the selected text and paste it into the "Raw Data" section above.</p>
@@ -153,23 +155,6 @@
                 document.getElementById("result").innerHTML = "You need to score at least " + seeMarks.toFixed(2) + " marks or more in the SEE to achieve a grade point of " + desiredGradePoint;
             }
         }
-
-        // Auto-hide instructions after 10 seconds
-        setTimeout(() => {
-            document.getElementById("instruction1").style.display = "none";
-            document.getElementById("instruction2").style.display = "none";
-            document.getElementById("instruction3").style.display = "none";
-            document.getElementById("instruction4").style.display = "none";
-            document.getElementById("instruction5").style.display = "none";
-            document.getElementById("instruction6").style.display = "none";
-            document.getElementById("instruction7").style.display = "none";
-        }, 35000);
     </script>
-
-    <br>
-    <center>
-        <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1048181/t/0"></script>
-    </center>
-    <br><br>
 </body>
 </html>
