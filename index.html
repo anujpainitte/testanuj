@@ -5,20 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Attendance and Marks Calculator / Grade Point Calculator</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .light-border {
+            border-collapse: collapse;
+            border: 1px solid #ddd;
+        }
+        .light-border th, .light-border td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
 </head>
 <body class="bg-gray-100 font-sans">
     <div class="container mx-auto py-12">
-        <h1 class="text-3xl font-semibold mb-8 text-center">Attendance and Marks Calculator</h1>
-        <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-lg">
-            <textarea id="dataInput" rows="10" cols="50" class="form-textarea block w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200" placeholder="Paste your raw data here"></textarea>
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4 block mx-auto" onclick="processRawData()">Process Data</button>
-            <div id="outputContainer" class="mt-6 overflow-x-auto">
-                <!-- Processed data table will be inserted here -->
-            </div>
-            <p id="instruction1" class="mt-6 text-gray-600">1. Go to <a href="http://parent-login.nmamit.in/index.php" class="text-blue-500" target="_blank">http://parent-login.nmamit.in/index.php</a> and login.</p>
-            <p id="instruction2" class="text-gray-600">2. Double-click on any text and click "Select All" to select the entire text.</p>
-            <p id="instruction3" class="text-gray-600">3. Copy the selected text and paste it into the "Raw Data" section above.</p>
-            <p id="instruction4" class="text-gray-600">4. Click on the "Process Data" button to generate the attendance and marks table.</p>
+        <!-- ... (the rest of your code remains the same) -->
+
+        <div id="outputContainer" class="mt-6 overflow-x-auto">
+            <table class="light-border">
+                <!-- Processed data table content will be inserted here -->
+            </table>
         </div>
     </div>
 
