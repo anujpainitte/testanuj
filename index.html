@@ -1,91 +1,62 @@
 <!DOCTYPE html>
-<html>
-<head><br>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Attendance and Marks Calculator / Grade Point Calculator</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <style>
-        y {
-            position: relative;
-            min-height: 100vh;
-            background-color: #f8f9fa;
-        }
-        
-        .qr-code {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px;
-            height: auto;
-        }
-
-        table {
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .orange-text {
-            color: orange;
-        }
-
-        .red-text {
-            color: red;
-        }
-
-        body {
-            font-family: "Arial", sans-serif;        
-        }
-    </style>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <div class="container">
-        <h1>Attendance and Marks Calculator</h1>
-        <textarea id="dataInput" rows="10" cols="50" class="form-control mb-4" placeholder="Paste your raw data here"></textarea>
-        <button class="btn btn-primary mb-4" onclick="processRawData()">Process Data</button>
-        <div id="outputContainer"></div>
-        <p id="instruction1" class="mb-4">1. Go to <a href="http://parent-login.nmamit.in/index.php">http://parent-login.nmamit.in/index.php</a> and login.</p>
-        <p id="instruction2" class="mb-4">2. Double-click on any text and click "Select All" to select the entire text.</p>
-        <p id="instruction3" class="mb-4">3. Copy the selected text and paste it into the "Raw Data" section above.</p>
-        <p id="instruction4" class="mb-4">4. Click on the "Process Data" button to generate the attendance and marks table.</p>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto py-12">
+        <h1 class="text-3xl font-semibold mb-8 text-center">Attendance and Marks Calculator</h1>
+        <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-lg">
+            <textarea id="dataInput" rows="10" cols="50" class="form-textarea block w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200" placeholder="Paste your raw data here"></textarea>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4 block mx-auto" onclick="processRawData()">Process Data</button>
+            <div id="outputContainer" class="mt-6"></div>
+            <p id="instruction1" class="mt-6 text-gray-600">1. Go to <a href="http://parent-login.nmamit.in/index.php" class="text-blue-500" target="_blank">http://parent-login.nmamit.in/index.php</a> and login.</p>
+            <p id="instruction2" class="text-gray-600">2. Double-click on any text and click "Select All" to select the entire text.</p>
+            <p id="instruction3" class="text-gray-600">3. Copy the selected text and paste it into the "Raw Data" section above.</p>
+            <p id="instruction4" class="text-gray-600">4. Click on the "Process Data" button to generate the attendance and marks table.</p>
+        </div>
     </div>
 
-    <hr class="my-5">
+    <hr class="my-8">
 
-    <div class="container">
-        <h1>Grade Point Calculator</h1>
-        <form>
-            <div class="form-group">
-                <label for="totalMarks">Total Marks (out of 50):</label>
-                <input type="number" class="form-control" id="totalMarks" name="totalMarks" required>
-            </div>
-            <div class="form-group">
-                <label for="desiredGradePoint">Desired Grade Point:</label>
-                <select class="form-control" id="desiredGradePoint" name="desiredGradePoint" required>
-                    <option value="">Select Grade Point</option>
-                    <option value="10">10</option>
-                    <option value="9">9</option>
-                    <option value="8">8</option>
-                    <option value="7">7</option>
-                    <option value="6">6</option>
-                </select>
-            </div>
-            <button type="button" class="btn btn-primary" onclick="calculateSEE()">Calculate</button>
-        </form>
+    <div class="container mx-auto">
+        <h1 class="text-3xl font-semibold text-center mb-8">Grade Point Calculator</h1>
+        <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-lg">
+            <form>
+                <div class="mb-4">
+                    <label for="totalMarks" class="block text-sm font-medium text-gray-700">Total Marks (out of 50):</label>
+                    <input type="number" class="form-input mt-1 block w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200" id="totalMarks" name="totalMarks" required>
+                </div>
+                <div class="mb-4">
+                    <label for="desiredGradePoint" class="block text-sm font-medium text-gray-700">Desired Grade Point:</label>
+                    <select class="form-select mt-1 block w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200" id="desiredGradePoint" name="desiredGradePoint" required>
+                        <option value="">Select Grade Point</option>
+                        <option value="10">10</option>
+                        <option value="9">9</option>
+                        <option value="8">8</option>
+                        <option value="7">7</option>
+                        <option value="6">6</option>
+                    </select>
+                </div>
+                <button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4 block mx-auto" onclick="calculateSEE()">Calculate</button>
+            </form>
 
-        <div id="result" class="mt-4"></div>
-        <p id="instruction5" class="mt-4">1. Enter the total marks out of 50
- you have obtained ( MSE + Tasks).</p>
-        <p id="instruction6" class="mt-4">2. Select your desired grade point from the dropdown list.</p>
-        <p id="instruction7" class="mt-4">3. Click the "Calculate" button to determine the marks required in SEE.</p>
+            <div id="result" class="mt-6"></div>
+            <p id="instruction5" class="mt-6 text-gray-600">1. Enter the total marks out of 50 you have obtained (MSE + Tasks).</p>
+            <p id="instruction6" class="text-gray-600">2. Select your desired grade point from the dropdown list.</p>
+            <p id="instruction7" class="text-gray-600">3. Click the "Calculate" button to determine the marks required in SEE.</p>
+        </div>
     </div>
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <br>
+    <center>
+        <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1048181/t/0"></script>
+    </center>
+    <br><br>
+
     <script>
         function processRawData() {
             const rawData = document.getElementById("dataInput").value;
@@ -136,7 +107,7 @@
                 if (currentAttendance !== '-' && currentAttendance < 75) {
                     const classesNeeded75 = Math.ceil((0.75 * classesHeld - classesAttended) / 0.15);
                     attendanceNeeded75Cell.textContent = classesNeeded75;
-                    attendanceNeeded75Cell.classList.add("red-text");
+                    attendanceNeeded75Cell.classList.add("text-red-500");
                 } else {
                     attendanceNeeded75Cell.textContent = '-';
                 }
@@ -146,7 +117,7 @@
                 if (currentAttendance !== '-' && currentAttendance < 85) {
                     const classesNeeded85 = Math.ceil((0.85 * classesHeld - classesAttended) / 0.15);
                     attendanceNeeded85Cell.textContent = classesNeeded85;
-                    attendanceNeeded85Cell.classList.add("orange-text");
+                    attendanceNeeded85Cell.classList.add("text-orange-500");
                 } else {
                     attendanceNeeded85Cell.textContent = attendanceNeeded75Cell.textContent;
                 }
@@ -160,9 +131,7 @@
                 table.appendChild(row);
             });
 
-            const outputContainer
-
- = document.getElementById("outputContainer");
+            const outputContainer = document.getElementById("outputContainer");
             outputContainer.innerHTML = '';
             outputContainer.appendChild(table);
         }
@@ -195,7 +164,12 @@
             document.getElementById("instruction6").style.display = "none";
             document.getElementById("instruction7").style.display = "none";
         }, 35000);
-    </script><br> <center><script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1048181/t/0"></script>
-    </center><br><br>
+    </script>
+
+    <br>
+    <center>
+        <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1048181/t/0"></script>
+    </center>
+    <br><br>
 </body>
 </html>
