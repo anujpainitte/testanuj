@@ -1,0 +1,37 @@
+y {
+    position: relative;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+}
+
+.qr-code {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: auto;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.orange-text {
+    color: orange;
+}
+
+.red-text {
+    color: red;
+}
+
+body {
+    font-family: "Arial", sans-serif;
+}
