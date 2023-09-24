@@ -103,4 +103,4 @@ setTimeout(() => {
     document.getElementById("instruction5").style.display = "none";
     document.getElementById("instruction6").style.display = "none";
     document.getElementById("instruction7").style.display = "none";
-}, 35000);
+}, 10000);
