@@ -12,17 +12,10 @@
         <h1 class="text-3xl font-semibold mb-4">Attendance and Marks Calculator</h1>
         <textarea id="dataInput" rows="10" cols="50" class="w-full p-2 mb-4 bg-gray-200 rounded-lg" placeholder="Paste your raw data here"></textarea>
         <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onclick="processRawData()">Process Data</button>
-        <div id="outputContainer" class="mt-4 table-responsive"></div>
-    </div>
-
-    <hr class="my-5">
-
-    <div class="container mx-auto p-6">
-        <!-- Buttons for "Miss All by 1" and "Attend All by 1" -->
         <button class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600" onclick="attendAllByOne()">Miss All by 1</button>
         <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600" onclick="missAllByOne()">Attend All by 1</button>
-        <button class="px-4 py-2 bg-red-500 text-white rounded hover-bg-red-600" onclick="processRawData()">Reset Data</button>
-
+        <button class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600" onclick="resetData()">Reset Data</button>
+        <div id="outputContainer" class="mt-4 table-responsive"></div>
     </div>
 
     <hr class="my-5">
@@ -41,6 +34,10 @@
             <button type="button" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onclick="calculateSEE()">Calculate</button>
         </form>
         <div id="result" class="mt-4"></div>
+    </div>
+
+    <div class="container mx-auto p-6 flex justify-center items-center">
+        <img src="QRanuj.jpg" alt="QRanuj" class="my-4">
     </div>
 
     <br>
