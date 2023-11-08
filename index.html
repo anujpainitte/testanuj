@@ -5,11 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Attendance and Marks Calculator / Grade Point Calculator</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.16/tailwind.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        .table-responsive {
+            overflow-x: auto;
+        }
+    </style>
 </head>
 <body class="bg-gray-100">
     <div class="container mx-auto p-6">
         <h1 class="text-3xl font-semibold mb-4">Attendance and Marks Calculator</h1>
+        <p>Instructions:</p>
+        <ol>
+            <li>Go to <a href="http://parent-login.nmamit.in/index.php" class="text-blue-500">http://parent-login.nmamit.in/index.php</a> and login.</li>
+            <li>Double-click on any text and click "Select All" to select the entire text.</li>
+            <li>Copy the selected text and paste it into the "Raw Data" section above.</li>
+            <li>Click on the "Process Data" button to generate the attendance and marks table.</li>
+        </ol>
         <textarea id="dataInput" rows="10" cols="50" class="w-full p-2 mb-4 bg-gray-200 rounded-lg" placeholder="Paste your raw data here"></textarea>
         <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onclick="processRawData()">Process Data</button>
         <div id="outputContainer" class="mt-4 table-responsive"></div>
@@ -20,16 +31,17 @@
     <div class="container mx-auto p-6">
         <!-- Buttons for "Miss All by 1" and "Attend All by 1" -->
         <div class="flex flex-wrap justify-center">
-            <button class="px-4 py-2 m-2 bg-red-500 text-white rounded hover:bg-red-600" onclick="attendAllByOne()">Miss All by 1</button>
-            <button class="px-4 py-2 m-2 bg-green-500 text-white rounded hover:bg-green-600" onclick="missAllByOne()">Attend All by 1</button>
-            <button class="px-4 py-2 m-2 bg-red-500 text-white rounded hover:bg-red-600" onclick="processRawData()">Reset Data</button>
+            <button class="px-4 py-2 m-2 bg-red-500 text-white rounded hover:bg-red-600" onclick="missAllByOne()">Miss All by 1</button>
+            <button class="px-4 py-2 m-2 bg-green-500 text-white rounded hover:bg-green-600" onclick="attendAllByOne()">Attend All by 1</button>
+            <button class="px-4 py-2 m-2 bg-red-500 text-white rounded hover:bg-red-600" onclick="resetData()">Reset Data</button>
         </div>
     </div>
 
     <hr class="my-5">
 
     <div class="container mx-auto p-6">
-        <h1 class="text-3xl font-semibold">Grade Point Calculator</h1>
+        <h1 class="text-3xl font-semibold">Grade Point Calculator</h1><br>
+        <p>Instructions: Enter your total marks (out of 50) and your desired grade point. Click "Calculate" to find out how many marks you need in SEE to achieve your desired grade point.</p>
         <form class="mt-4">
             <div class="mb-4">
                 <label for="totalMarks" class="block text-gray-700">Total Marks (out of 50):</label>
