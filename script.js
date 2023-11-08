@@ -7,7 +7,7 @@ function processRawData() {
     rows.splice(0, 3);
     const table = document.createElement("table");
 
-    const headers = ["Subject", "Current Attendance (%)", "Classes to attend for above 75%", "Classes to attend for above 85%", "Total Marks (out of 50)"];
+    const headers = ["Subject", "Current Attendance", "Classes to attend for above 75%", "Classes to attend for above 85%", "Total Marks (out of 50)"];
     const headerRow = document.createElement("tr");
     headers.forEach(headerText => {
         const header = document.createElement("th");
@@ -24,7 +24,7 @@ function processRawData() {
         const subject = columns[1];
         const classesHeld = columns[columns.length - 2] !== '' ? parseFloat(columns[columns.length - 2]) : 0;
         const classesAttended = columns[columns.length - 1] !== '' ? parseFloat(columns[columns.length - 1]) : 0;
-        const currentAttendance = classesHeld !== 0 ? (classesAttended / classesHeld * 100).toFixed(2) : '-';
+        const currentAttendance = classesHeld !== 0 ? (classesAttended / classesHeld * 100).toFixed(2) + '%': '-';
 
         const marksData = columns.slice(2, columns.length - 2).filter(mark => mark !== '' && mark !== '*' && mark !== '#');
         const marks = marksData.length > 0 ? marksData.reduce((sum, mark) => sum + parseFloat(mark), 0) : 0;
@@ -36,17 +36,19 @@ function processRawData() {
         const subjectCell = document.createElement("td");
         subjectCell.textContent = subject;
         row.appendChild(subjectCell);
-
+        
         const currentAttendanceCell = document.createElement("td");
-        currentAttendanceCell.textContent = !isNaN(currentAttendance) ? currentAttendance : '-';
+        const fractionAttendance = classesHeld !== 0 ? `${classesAttended}/${classesHeld}` : '-';
+        const percentageAttendance = classesHeld !== 0 ? `${((classesAttended / classesHeld) * 100).toFixed(2)}%` : '-';
+        currentAttendanceCell.innerHTML = `${fractionAttendance} (${percentageAttendance})`;
         row.appendChild(currentAttendanceCell);
 
         const attendanceNeeded75Cell = document.createElement("td");
         const attendanceNeeded85Cell = document.createElement("td");
 
-        if (currentAttendance !== '-' && currentAttendance < 75) {
+        if (currentAttendance !== '-' && parseFloat(currentAttendance) < 75) {
             const classesNeeded75 = Math.ceil((0.75 * classesHeld - classesAttended) / 0.15);
-            attendanceNeeded75Cell.textContent = classesNeeded75;
+            attendanceNeeded75Cell.textContent = classesNeeded75 >= 0 ? classesNeeded75 : '-';
             attendanceNeeded75Cell.classList.add("red-text");
         } else {
             attendanceNeeded75Cell.textContent = '-';
@@ -54,9 +56,9 @@ function processRawData() {
 
         row.appendChild(attendanceNeeded75Cell);
 
-        if (currentAttendance !== '-' && currentAttendance < 85) {
+        if (currentAttendance !== '-' && parseFloat(currentAttendance) < 85) {
             const classesNeeded85 = Math.ceil((0.85 * classesHeld - classesAttended) / 0.15);
-            attendanceNeeded85Cell.textContent = classesNeeded85;
+            attendanceNeeded85Cell.textContent = classesNeeded85 >= 0 ? classesNeeded85 : '-';
             attendanceNeeded85Cell.classList.add("orange-text");
         } else {
             attendanceNeeded85Cell.textContent = attendanceNeeded75Cell.textContent;
@@ -94,13 +96,56 @@ function calculateSEE() {
     }
 }
 
-// Auto-hide instructions after 10 seconds
-setTimeout(() => {
-    document.getElementById("instruction1").style.display = "none";
-    document.getElementById("instruction2").style.display = "none";
-    document.getElementById("instruction3").style.display = "none";
-    document.getElementById("instruction4").style.display = "none";
-    document.getElementById("instruction5").style.display = "none";
-    document.getElementById("instruction6").style.display = "none";
-    document.getElementById("instruction7").style.display = "none";
-}, 10000);
+function attendAllByOne() {
+    const currentAttendanceCells = document.querySelectorAll("td:nth-child(2)");
+    currentAttendanceCells.forEach(cell => {
+        if (cell.textContent !== '-') {
+            const fractionParts = cell.textContent.match(/(\d+)\/(\d+)/);
+            if (fractionParts) {
+                const newHeld = parseInt(fractionParts[2]) + 1;
+                const newAttended = parseInt(fractionParts[1]);
+                const newAttendance = `${newAttended}/${newHeld}`;
+                const percentageAttendance = `${((newAttended / newHeld) * 100).toFixed(2)}%`;
+                cell.textContent = `${newAttendance} (${percentageAttendance})`;
+            }
+        }
+    });
+    updateClassesToAttend();
+}
+
+function missAllByOne() {
+    const currentAttendanceCells = document.querySelectorAll("td:nth-child(2)");
+    currentAttendanceCells.forEach(cell => {
+        if (cell.textContent !== '-') {
+            const fractionParts = cell.textContent.match(/(\d+)\/(\d+)/);
+            if (fractionParts) {
+                const newHeld = parseInt(fractionParts[2]) + 1;
+                const newAttended = parseInt(fractionParts[1]) + 1;
+                const newAttendance = `${newAttended}/${newHeld}`;
+                const percentageAttendance = `${((newAttended / newHeld) * 100).toFixed(2)}%`;
+                cell.textContent = `${newAttendance} (${percentageAttendance})`;
+            }
+        }
+    });
+    updateClassesToAttend();
+}
+
+function updateClassesToAttend() {
+    const currentAttendanceCells = document.querySelectorAll("td:nth-child(2)");
+    const attendanceNeeded75Cells = document.querySelectorAll("td:nth-child(3)");
+    const attendanceNeeded85Cells = document.querySelectorAll("td:nth-child(4)");
+
+    currentAttendanceCells.forEach((cell, index) => {
+        const currentAttendance = parseFloat(cell.textContent.split(" ")[0]);
+        const fractionParts = cell.textContent.match(/(\d+)\/(\d+)/);
+        if (fractionParts) {
+            const classesHeld = parseInt(fractionParts[2]);
+            const classesAttended = parseInt(fractionParts[1]);
+            const classesNeeded75 = Math.ceil((0.75 * classesHeld - classesAttended) / 0.15);
+            const classesNeeded85 = Math.ceil((0.85 * classesHeld - classesAttended) / 0.15);
+
+            attendanceNeeded75Cells[index].textContent = currentAttendance !== '-' ? (classesNeeded75 >= 0 ? classesNeeded75 : '-') : '-';
+            attendanceNeeded85Cells[index].textContent = currentAttendance !== '-' ? (classesNeeded85 >= 0 ? classesNeeded85 : '-') : '-';
+        }
+    });
+}
