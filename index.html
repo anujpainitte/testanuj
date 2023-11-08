@@ -13,15 +13,16 @@
         <textarea id="dataInput" rows="10" cols="50" class="w-full p-2 mb-4 bg-gray-200 rounded-lg" placeholder="Paste your raw data here"></textarea>
         <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onclick="processRawData()">Process Data</button>
         <div id="outputContainer" class="mt-4 table-responsive"></div>
-        <div id="instructions" class="mt-4"><div id="outputContainer" class="mt-4 overflow-x-auto"></div>
-            <p>Instructions:</p>
-            <ol>
-                <li>Go to <a href="http://parent-login.nmamit.in/index.php" class="text-blue-500">http://parent-login.nmamit.in/index.php</a> and login.</li>
-                <li>Double-click on any text and click "Select All" to select the entire text.</li>
-                <li>Copy the selected text and paste it into the "Raw Data" section above.</li>
-                <li>Click on the "Process Data" button to generate the attendance and marks table.</li>
-            </ol>
-        </div>
+    </div>
+
+    <hr class="my-5">
+
+    <div class="container mx-auto p-6">
+        <!-- Buttons for "Miss All by 1" and "Attend All by 1" -->
+        <button class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600" onclick="attendAllByOne()">Miss All by 1</button>
+        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600" onclick="missAllByOne()">Attend All by 1</button>
+        <button class="px-4 py-2 bg-red-500 text-white rounded hover-bg-red-600" onclick="processRawData()">Reset Data</button>
+
     </div>
 
     <hr class="my-5">
@@ -35,14 +36,7 @@
             </div>
             <div class="mb-4">
                 <label for="desiredGradePoint" class="block text-gray-700">Desired Grade Point:</label>
-                <select class="w-full px-4 py-2 rounded-lg bg-gray-200" id="desiredGradePoint" name="desiredGradePoint" required>
-                    <option value="">Select Grade Point</option>
-                    <option value="10">10</option>
-                    <option value="9">9</option>
-                    <option value="8">8</option>
-                    <option value="7">7</option>
-                    <option value="6">6</option>
-                </select>
+                <input type="number" class="w-full px-4 py-2 rounded-lg bg-gray-200" id="desiredGradePoint" name="desiredGradePoint" required>
             </div>
             <button type="button" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onclick="calculateSEE()">Calculate</button>
         </form>
